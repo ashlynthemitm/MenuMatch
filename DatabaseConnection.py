@@ -1,7 +1,6 @@
 from dotenv import load_dotenv
 import mysql.connector
 import os 
-import re
 
 class DatabaseConnectionClass():
     def __enter__(self):

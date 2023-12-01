@@ -1,12 +1,9 @@
 from flask import Flask, render_template, request, jsonify
-import mysql.connector
 from DatabaseConnection import DatabaseConnectionClass
 import random
 import os
 
 template_dir = os.path.abspath('templates')
-# static_dir = os.path.abspath('static')
-# Set the path to the templates
 app = Flask(__name__, 
             static_url_path='/static', 
             template_folder=template_dir)
@@ -205,11 +202,6 @@ def user_data(data):
             LEFT JOIN Menu m ON r.restaurant_id = m.restaurant_id
             WHERE r.restaurant_type = '{user_food_type}';        
             """
-            # SELECT r.name, r.address, r.distance_miles, r.restaurant_type, r.average_price_score, s.rating
-            # FROM Restaurant r
-            # LEFT JOIN Menu m ON r.restaurant_id = m.restaurant_id
-            # JOIN Serves s ON r.restaurant_id = s.restaurant_id
-            # WHERE r.restaurant_type = '{user_food_type}';  
             
             db.cursor.execute(user_table_query)
             results = db.cursor.fetchall()
