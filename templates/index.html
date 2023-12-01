@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <!-- Include this CSS in the head section of your HTML -->
+    <style>
+      section {
+        margin: 20px;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+      }
+
+      h2 {
+        color: #333;
+      }
+
+      form {
+        max-width: 600px;
+        margin: 20px auto;
+        text-align: left;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+
+      input[type="text"],
+      select {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 10px;
+        box-sizing: border-box;
+      }
+
+      fieldset {
+        border: 1px solid #ddd;
+        padding: 10px;
+        margin-bottom: 20px;
+      }
+
+      legend {
+        font-weight: bold;
+        color: #333;
+      }
+
+      input[type="checkbox"] {
+        margin-right: 5px;
+      }
+
+      button {
+        background-color: #5bc0de;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+    </style>
+
+    <title>Menu Match</title>
+  </head>
+  <body>
+    <header>
+      <div class="header">
+        <a
+          href="account.html"
+          class="account-link"
+          onclick="redirectToAccountPage()"
+          >Create an Account or Login</a
+        >
+      </div>
+      <center><h1>Welcome to Menu Match</h1></center>
+    </header>
+
+    <section>
+      <center>
+        <h2>
+          Please complete this form to get a list of custom Restaurants near GSU
+        </h2>
+      </center>
+
+      <form id="suggestionsForm">
+        <!-- Name -->
+        <label for="name" label="Name">Name:</label>
+        <input type="text" id="name" name="name" required />
+
+        <!-- Food Type (Dropdown) -->
+        <label for="foodType">Food Type:</label>
+        <select id="foodType" name="foodType">
+          <option value="" disabled selected>Select</option>
+          <option value="Vegetarian">Vegetarian</option>
+          <option value="Thai">Thai</option>
+          <option value="Sushi">Sushi</option>
+          <option value="Steakhouse">Steakhouse</option>
+          <option value="Seafood">Seafood</option>
+          <option value="Mexican">Mexican</option>
+          <option value="Korean">Korean</option>
+          <option value="Japanese">Japanese</option>
+          <option value="Italian">Italian</option>
+          <option value="Indian">Indian</option>
+          <option value="Greek">Greek</option>
+          <option value="Fusion">Fusion</option>
+          <option value="French">French</option>
+          <option value="Chinese">Chinese</option>
+          <option value="American">American</option>
+        </select>
+
+        <!-- Allergens (Checkbox List) -->
+        <fieldset>
+          <legend>Allergens:</legend>
+          <input
+            type="checkbox"
+            id="none_allergens"
+            name="allergen"
+            value="none_allergens"
+          />
+          <label for="none_allergens">None</label>
+
+          <input type="checkbox" id="peanut" name="allergen" value="peanuts" />
+          <label for="peanuts">Peanuts</label>
+
+          <input type="checkbox" id="dairy" name="allergen" value="dairy" />
+          <label for="dairy">Dairy</label>
+
+          <input type="checkbox" id="gluten" name="allergen" value="gluten" />
+          <label for="gluten">Gluten</label>
+
+          <input type="checkbox" id="eggs" name="allergen" value="eggs" />
+          <label for="eggs">Eggs</label>
+
+          <input type="checkbox" id="nuts" name="allergen" value="nuts" />
+          <label for="nuts">Nuts</label>
+
+          <input
+            type="checkbox"
+            id="shellfish"
+            name="allergen"
+            value="shellfish"
+          />
+          <label for="shellfish">Shellfish</label>
+
+          <input type="checkbox" id="fish" name="allergen" value="fish" />
+          <label for="fish">Fish</label>
+
+          <input type="checkbox" id="soy" name="allergen" value="soy" />
+          <label for="soy">Soy</label>
+        </fieldset>
+
+        <!-- Submit Button -->
+        <button type="button" onclick="collectFormData()" id="form-submit">
+          Submit
+        </button>
+      </form>
+    </section>
+    <section>
+      <!--Table Section-->
+      <table class="table table-striped">
+        <tr class="bg-info">
+          <th>Name</th>
+          <th>Address</th>
+          <th>Distance Miles</th>
+          <th>Restaurant Type</th>
+          <th>Average Price Score</th>
+          <th>Rating</th>
+        </tr>
+        <tbody id="myTable"></tbody>
+      </table>
+    </section>
+    <footer>
+      <p>&copy; Created by Ashlyn Campbell</p>
+    </footer>
+    <script>
+      function redirectToAccountPage() {
+        // Add logic to redirect to your account creation or login page
+        alert("Redirecting to create or login page...");
+      }
+    </script>
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Include the JavaScript file -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>

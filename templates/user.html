@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <style>
+      body {
+        font-family: "Arial", sans-serif;
+        margin: 0;
+        padding: 0;
+        background-color: #f4f4f4;
+      }
+
+      header {
+        background-color: #333;
+        color: #fff;
+        padding: 10px;
+        text-align: center;
+      }
+
+      section {
+        max-width: 600px;
+        margin: 20px auto;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        border-radius: 5px;
+      }
+
+      h2 {
+        color: #333;
+        text-align: center;
+      }
+
+      form {
+        text-align: left;
+      }
+
+      label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      #restaurant_count {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background-color: #5bc0de;
+        color: #fff;
+        padding: 5px 10px;
+        border-radius: 5px;
+      }
+
+      select,
+      input {
+        width: 100%;
+        padding: 10px;
+        margin-bottom: 15px;
+        box-sizing: border-box;
+      }
+
+      button {
+        background-color: #5bc0de;
+        color: #fff;
+        padding: 10px 15px;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 5px;
+      }
+
+      button:hover {
+        background-color: #45a049;
+      }
+
+      footer {
+        background-color: #333;
+        color: #fff;
+        text-align: center;
+        padding: 10px;
+        position: fixed;
+        bottom: 0;
+        width: 100%;
+      }
+    </style>
+
+    <title>Menu Match</title>
+  </head>
+  <body>
+    <header>
+      <h1>Hello Menu Match User</h1>
+    </header>
+    <div id="restaurant_count">0 Restaurants Nearby</div>
+    <section>
+      <h2>Complete this form to get additional suggestions!</h2>
+      <form id="user_suggestionsForm">
+        <!-- Food Type (Dropdown) -->
+        <label for="food_type">Food Type:</label>
+        <select id="user_food_type" name="user_food_type">
+          <option value="Vegetarian">Vegetarian</option>
+          <option value="Thai">Thai</option>
+          <option value="Sushi">Sushi</option>
+          <option value="Steakhouse">Steakhouse</option>
+          <option value="Seafood">Seafood</option>
+          <option value="Mexican">Mexican</option>
+          <option value="Korean">Korean</option>
+          <option value="Japanese">Japanese</option>
+          <option value="Italian">Italian</option>
+          <option value="Indian">Indian</option>
+          <option value="Greek">Greek</option>
+          <option value="Fusion">Fusion</option>
+          <option value="French">French</option>
+          <option value="Chinese">Chinese</option>
+          <option value="American">American</option>
+        </select>
+
+        <!-- Submit Button -->
+        <button
+          type="button"
+          onclick="userFoodTypeData()"
+          id="user_table-submit"
+        >
+          Submit
+        </button>
+      </form>
+    </section>
+
+    <section>
+      <h2>Would you like to store a rating for your restaurants?</h2>
+      <form id="user_storeForm">
+        <!-- Email -->
+        <label for="email">Email:</label>
+        <input type="email" id="rating_email" name="rating_email" required />
+
+        <!-- Add Rating to Restaurant -->
+        <label for="restaurant_select">Select a Restaurant:</label>
+        <select id="restaurant_select">
+          <option value="" disabled selected>Select a restaurant</option>
+          <option value="All-American Diner">All-American Diner</option>
+          <option value="American Diner">American Diner</option>
+          <option value="BBQ Bliss">BBQ Bliss</option>
+          <option value="BBQ Junction">BBQ Junction</option>
+          <option value="BBQ Rodeo">BBQ Rodeo</option>
+          <option value="Belle Epoque">Belle Epoque</option>
+          <option value="Bollywood Spice">Bollywood Spice</option>
+          <option value="Burger Haven">Burger Haven</option>
+          <option value="Casa de Amigos">Casa de Amigos</option>
+          <option value="Casa Italia">Casa Italia</option>
+          <option value="Chez Pierre">Chez Pierre</option>
+          <option value="Cinco de Mayo">Cinco de Mayo</option>
+          <option value="Classic Burgers">Classic Burgers</option>
+          <option value="Curry Palace">Curry Palace</option>
+          <option value="Dragon Wok">Dragon Wok</option>
+          <option value="Flavor Fusion">Flavor Fusion</option>
+          <option value="French Elegance">French Elegance</option>
+          <option value="Fusion Fusion">Fusion Fusion</option>
+          <option value="Global Flavors">Global Flavors</option>
+          <option value="Golden Dragon">Golden Dragon</option>
+          <option value="Greek Isles">Greek Isles</option>
+          <option value="Green Garden">Green Garden</option>
+          <option value="Green Oasis">Green Oasis</option>
+          <option value="Grill Master">Grill Master</option>
+          <option value="Italiano Ristorante">Italiano Ristorante</option>
+          <option value="Kimchi Delights">Kimchi Delights</option>
+          <option value="Kimchi House">Kimchi House</option>
+          <option value="Korean BBQ House">Korean BBQ House</option>
+          <option value="Korean Delights">Korean Delights</option>
+          <option value="La Petite Bistro">La Petite Bistro</option>
+          <option value="Le Petit Château">Le Petit Château</option>
+          <option value="Mediterranean Delights">Mediterranean Delights</option>
+          <option value="Ninja Sushi">Ninja Sushi</option>
+          <option value="Olive Garden Cafe">Olive Garden Cafe</option>
+          <option value="Olympus Taverna">Olympus Taverna</option>
+          <option value="Pizza Paradise">Pizza Paradise</option>
+          <option value="Prime Cuts">Prime Cuts</option>
+          <option value="Red Lobster Bay">Red Lobster Bay</option>
+          <option value="Rolling Sushi">Rolling Sushi</option>
+          <option value="Royal Tandoor">Royal Tandoor</option>
+          <option value="Rustic Eats">Rustic Eats</option>
+          <option value="Sakura Garden">Sakura Garden</option>
+          <option value="Sakura Sushi House">Sakura Sushi House</option>
+          <option value="Salsa Sensations">Salsa Sensations</option>
+          <option value="Seafood Delights">Seafood Delights</option>
+          <option value="Seafood Harbor">Seafood Harbor</option>
+          <option value="Seafood Sensations">Seafood Sensations</option>
+          <option value="Sizzling Steaks">Sizzling Steaks</option>
+          <option value="Smoke & Grill">Smoke & Grill</option>
+          <option value="Smokehouse Grill">Smokehouse Grill</option>
+          <option value="Spice It Up Thai">Spice It Up Thai</option>
+          <option value="Spice of Siam">Spice of Siam</option>
+          <option value="Spice Thai Fusion">Spice Thai Fusion</option>
+          <option value="Spicy Curry">Spicy Curry</option>
+          <option value="Steakhouse Royale">Steakhouse Royale</option>
+          <option value="Steakhouse Supreme">Steakhouse Supreme</option>
+          <option value="Sushi Delight">Sushi Delight</option>
+          <option value="Sushi Express">Sushi Express</option>
+          <option value="Sushi Harbor">Sushi Harbor</option>
+          <option value="Sushi Haven">Sushi Haven</option>
+          <option value="Sushi Sensation">Sushi Sensation</option>
+          <option value="Taco Express">Taco Express</option>
+          <option value="Taco Heaven">Taco Heaven</option>
+          <option value="Taj Mahal">Taj Mahal</option>
+          <option value="Tasty Bites">Tasty Bites</option>
+          <option value="Thai Fusion Express">Thai Fusion Express</option>
+          <option value="Thai Spice">Thai Spice</option>
+          <option value="Thai Spice Garden">Thai Spice Garden</option>
+          <option value="Vegetarian Bliss">Vegetarian Bliss</option>
+          <option value="Veggie Delights">Veggie Delights</option>
+          <option value="Veggie Garden">Veggie Garden</option>
+          <option value="Zen Sushi">Zen Sushi</option>
+        </select>
+
+        <label for="rating_select">Select a Rating (1-5):</label>
+        <select id="rating_select">
+          <option value="" disabled selected>Select a rating</option>
+          <option value="1">1 - Poor</option>
+          <option value="2">2 - Below Average</option>
+          <option value="3">3 - Average</option>
+          <option value="4">4 - Good</option>
+          <option value="5">5 - Excellent</option>
+        </select>
+        <!-- Submit Button -->
+        <button
+          type="button"
+          onclick="userRateRestaurant()"
+          id="user_rate-submit"
+        >
+          Submit
+        </button>
+      </form>
+    </section>
+
+    <section>
+      <h2>User Settings</h2>
+      <!--Delete Account form-->
+      <h2>Enter your email and password to delete your account</h2>
+      <form id="deleteAccountForm">
+        <!-- Email -->
+        <label for="email">Email:</label>
+        <input type="email" id="delete_email" name="delete_email" required />
+
+        <!-- Password -->
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="delete_password"
+          name="delete_password"
+          required
+        />
+        <!-- Submit Button -->
+        <button type="button" onclick="deleteAccount()" id="user_delete-submit">
+          Delete Account
+        </button>
+      </form>
+
+      <h2>Update Allergen</h2>
+      <form id="updateAllergenForm">
+        <label for="email">Email:</label>
+        <input
+          type="email"
+          id="update_allergen_email"
+          name="update_allergen_email"
+          required
+        />
+
+        <label for="password">Password:</label>
+        <input
+          type="password"
+          id="update_allergen_password"
+          name="upate_allergen_password"
+          required
+        />
+
+        <label for="allergen">Allergen:</label>
+        <input
+          type="text"
+          id="update_allergen"
+          name="update_allergen"
+          required
+        />
+
+        <button
+          type="button"
+          onclick="updateAllergen()"
+          id="user_allergen-submit"
+        >
+          Submit
+        </button>
+      </form>
+    </section>
+
+    <section>
+      <!--Table Section-->
+      <table class="table table-striped">
+        <tr class="bg-info">
+          <th>Name</th>
+          <th>Address</th>
+          <th>Distance Miles</th>
+          <th>Restaurant Type</th>
+          <th>Average Price Score</th>
+          <th>Your Rating</th>
+        </tr>
+        <tbody id="userTable"></tbody>
+      </table>
+    </section>
+    <footer>
+      <p>&copy; Created by Ashlyn Campbell</p>
+    </footer>
+
+    <script>
+      // Retrieve data from the URL
+      var urlParams = new URLSearchParams(window.location.search);
+      var requestDataString = urlParams.get("data");
+      var updateRestaurantCountString = urlParams.get("num_restaurants");
+
+      var requestData = JSON.parse(decodeURIComponent(requestDataString));
+      //var restaurantCount = JSON.parse(decodeURIComponent(updateRestaurantCountString));
+
+      document.getElementById("userTable").innerHTML = requestData;
+      document.getElementById("restaurant_count").innerHTML =
+        updateRestaurantCountString + " Restaurants Nearby";
+
+      console.log(requestData);
+      console.log("Restaurant Count: ", updateRestaurantCountString);
+      console.log(document.getElementById("restaurant_count").style);
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
+    <!-- Include the JavaScript file -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+  </body>
+</html>
